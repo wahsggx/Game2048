@@ -1,1 +1,51 @@
-h1{color:red}
+header{
+    display: block;
+    margin: 0 auto;
+    width: 500px;
+    text-align: center;
+}
+header h1{
+    color:black;
+    font-size: 60px;
+    font-family: Arial;
+    font-weight: bold;
+}
+header #newGameButton{
+    display: block;
+    margin:20px auto;
+
+    width: 100px;
+    padding: 10px 10px;
+    background-color: #8f7a66;
+    font-family: Arial;
+    color: white;
+
+    border-radius: 10px;
+    text-decoration: none;
+}
+
+header p{
+    font-family: Arial;
+    font-weight: bold;
+    font-size: 25px;
+}
+
+#grid-container{
+    width: 460px;
+    height: 460px;
+    padding: 20px;
+
+    margin: 50px auto;
+    position: relative;
+
+    border-radius: 10px;
+    background-color: #bbada0;
+}
+.grid-cell{
+    width: 100px;
+    height: 100px;
+    background-color: #ccc0b3;
+    border-radius: 5px;
+
+    position: absolute;/*具体位置通过js来控制*/
+}
