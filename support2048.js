@@ -1,14 +1,17 @@
 /**
  * Created by Hokkaido on 2017/7/5.
  */
+//获取board的left值
 function getPosLeft(i,j){
     return 20 + j * 120;
 }
 
+//获取board的top值
 function getPosTop(i,j){
     return 20 + i * 120;
 }
 
+//设置不同数字背景颜色
 function getNumberBackgroundColor( number ){
         switch (number){
             case 2 : return "#eee4da";break;
@@ -28,10 +31,23 @@ function getNumberBackgroundColor( number ){
         }
 }
 
+//设置数字颜色
 function getNumberColor(number){
     if(number <= 4){
         return "#776e65";
     }else{
         return "white";
     }
+}
+
+//检测board是否有空格
+function nospace(){
+    for(var i = 0; i<4; i++){
+        for(var j = 0; j<4; j++){
+            if(board[i][j] == 0){
+                return false;
+            }
+        }
+    }
+    return true;
 }

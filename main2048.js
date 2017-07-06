@@ -13,11 +13,11 @@ function newgame(){
     //初始化网格
     init();
     //在随机两个格子生成数字
-    //generate();
+    generateOneNumber();
 }
 
 function init(){
-    //网格布局
+    //底层网格布局
     for( var i = 0; i < 4; i++){
         for( var j = 0; j < 4; j++){
             var $gridCell = $("#grid-cell-"+i+"-"+j);//jquery对象
@@ -27,7 +27,7 @@ function init(){
         }
     }
 
-    //board初始化为二维数组
+    //board(数字块)初始化为二维数组
     for( var i = 0; i<4; i++){
         board[i] = new Array();
         for(var j = 0; j<4; j++){
@@ -37,10 +37,6 @@ function init(){
 
     //根据board值对前端进行展示
     updateBoardView();
-
-
-
-
 
 }
 
@@ -71,3 +67,30 @@ function updateBoardView(){
     }
 }
 
+function generateOneNumber(){
+    if (nospace(board)){
+        return false;//board已满
+    }else{
+        //产生一个位置
+        var randX = parseInt (Math.floor(Math.random()*4));
+        var randY = parseInt (Math.floor(Math.random()*4));
+
+        while(true){
+            if(board[randX][randY] == 0){
+                break;
+            }
+
+            var randX = parseInt (Math.floor(Math.random()*4));
+            var randY = parseInt (Math.floor(Math.random()*4));
+        }
+
+        //产生一个随机数2or4
+        var randNumber = Math.random() < 0.5 ? 2 : 4;
+
+        //在随机位置显示随机数字
+        board[randX][randY] = randNumber;
+        showNumberWithAnimation(randX, randY, randNumber);
+        return true;
+    }
+
+}
