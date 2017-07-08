@@ -4,7 +4,7 @@
 var board = new Array();
 var score = 0;
 var hasConflict = new Array();
-
+///////////////////////////////////////初始化页面//////////////////
 $(document).ready(function(){
     newgame();
 });
@@ -80,13 +80,24 @@ function generateOneNumber(){
         var randX = parseInt (Math.floor(Math.random()*4));
         var randY = parseInt (Math.floor(Math.random()*4));
 
-        while(true){
+        var times = 0;
+        while( times<50 ){
             if(board[randX][randY] == 0){
                 break;
             }
 
             var randX = parseInt (Math.floor(Math.random()*4));
             var randY = parseInt (Math.floor(Math.random()*4));
+        }
+        if(times == 50){
+            for(var i = 0;i<4; i++){
+                for(var j = 0;j<4; j++){
+                    if(board[i][j] == 0 ){
+                        randX = i;
+                        randY = j;
+                    }
+                }
+            }
         }
 
         //产生一个随机数2or4
@@ -100,6 +111,7 @@ function generateOneNumber(){
 
 }
 
+//////////////////////////////实现交互/////////////////////////////////////////
 //实现交互
 
 $(document).keydown(function (event) {
