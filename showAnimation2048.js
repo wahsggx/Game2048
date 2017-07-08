@@ -24,3 +24,8 @@ function showMoveAnimation( fromX , fromY , toX , toY ){
         "top": getPosTop(toX, toY)
     },50);
 }
+
+
+function updateScore(score) {
+    $("#score").text(score);
+}

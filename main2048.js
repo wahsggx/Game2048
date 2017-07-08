@@ -38,7 +38,7 @@ function init(){
 
     //根据board值对前端进行展示
     updateBoardView();
-
+    score = 0;/////分数一直累加没有意义？？？？？？？？？？？？？？？？？？？？？？？？？？？？
 }
 
 
@@ -134,7 +134,7 @@ $(document).keydown(function (event) {
 function isGameOver() {
     if(nospace(board) && noMove(board)){
         gameOver();
-    }
+    }///////////没有考虑2048的情况
 }
 
 function gameOver(){
@@ -163,6 +163,10 @@ function MoveLeft(){
                     else if(board[i][k] == board[i][j] && noBlockHorizontal(i, k, j, board)){
                         board[i][k] += board[i][j];
                         board[i][j] = 0;
+
+                        //add score
+                        score += board[i][k];
+                        updateScore(score);
 
                         continue;
                     }
@@ -198,6 +202,10 @@ function MoveUp(){
                     else if(board[k][j] == board[i][j] && noBlockVertical(k, i, j, board)){
                         board[k][j] += board[i][j];
                         board[i][j] = 0;
+
+                        //add score
+                        score += board[k][j];
+                        updateScore(score);
 
                         continue;
                     }
@@ -235,6 +243,10 @@ function MoveRight(){
                         board[i][k] += board[i][j];
                         board[i][j] = 0;
 
+                        //add score
+                        score += board[i][k];
+                        updateScore(score);
+
                         continue;
                     }
 
@@ -270,6 +282,10 @@ function MoveDown(){
                     else if(board[k][j] == board[i][j] && noBlockVertical(i, k, j, board)){
                         board[k][j] += board[i][j];
                         board[i][j] = 0;
+
+                        //add score
+                        score += board[k][j];
+                        updateScore(score);
 
                         continue;
                     }
