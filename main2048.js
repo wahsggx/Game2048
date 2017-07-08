@@ -3,6 +3,7 @@
  */
 var board = new Array();
 var score = 0;
+var hasConflict = new Array();
 
 $(document).ready(function(){
     newgame();
@@ -31,8 +32,10 @@ function init(){
     //board(数字块)初始化为二维数组
     for( var i = 0; i<4; i++){
         board[i] = new Array();
+        hasConflict[i] = new Array();
         for(var j = 0; j<4; j++){
             board[i][j] = 0;
+            hasConflict[i][j] = false;
         }
     }
 
@@ -64,6 +67,7 @@ function updateBoardView(){
                 $theNumberCell.css('color',getNumberColor(board[i][j]));
                 $theNumberCell.text(board[i][j]);
             }
+            hasConflict[i][j] = false;
         }
     }
 }
@@ -134,7 +138,7 @@ $(document).keydown(function (event) {
 function isGameOver() {
     if(nospace(board) && noMove(board)){
         gameOver();
-    }///////////没有考虑2048的情况
+    }///////////没有考虑2048的情况????????????????????????????
 }
 
 function gameOver(){
@@ -160,9 +164,10 @@ function MoveLeft(){
 
                         continue;
                     }
-                    else if(board[i][k] == board[i][j] && noBlockHorizontal(i, k, j, board)){
+                    else if(board[i][k] == board[i][j] && noBlockHorizontal(i, k, j, board) && !hasConflict[i][k]){
                         board[i][k] += board[i][j];
                         board[i][j] = 0;
+                        hasConflict[i][k] = true;
 
                         //add score
                         score += board[i][k];
@@ -199,9 +204,10 @@ function MoveUp(){
 
                         continue;
                     }
-                    else if(board[k][j] == board[i][j] && noBlockVertical(k, i, j, board)){
+                    else if(board[k][j] == board[i][j] && noBlockVertical(k, i, j, board) && !hasConflict[k][j]){
                         board[k][j] += board[i][j];
                         board[i][j] = 0;
+                        hasConflict[k][j] = true;
 
                         //add score
                         score += board[k][j];
@@ -239,9 +245,10 @@ function MoveRight(){
 
                         continue;
                     }
-                    else if(board[i][k] == board[i][j] && noBlockHorizontal(i, j, k, board)){
+                    else if(board[i][k] == board[i][j] && noBlockHorizontal(i, j, k, board) && !hasConflict[i][k]){
                         board[i][k] += board[i][j];
                         board[i][j] = 0;
+                        hasConflict[i][k] = true;
 
                         //add score
                         score += board[i][k];
@@ -279,9 +286,10 @@ function MoveDown(){
 
                         continue;
                     }
-                    else if(board[k][j] == board[i][j] && noBlockVertical(i, k, j, board)){
+                    else if(board[k][j] == board[i][j] && noBlockVertical(i, k, j, board) && !hasConflict[k][j]){
                         board[k][j] += board[i][j];
                         board[i][j] = 0;
+                        hasConflict[k][j] = true;
 
                         //add score
                         score += board[k][j];
