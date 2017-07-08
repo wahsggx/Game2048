@@ -14,6 +14,7 @@ function newgame(){
     init();
     //在随机两个格子生成数字
     generateOneNumber();
+    generateOneNumber();
 }
 
 function init(){
@@ -93,4 +94,185 @@ function generateOneNumber(){
         return true;
     }
 
+}
+
+//实现交互
+
+$(document).keydown(function (event) {
+    console.log(event.keyCode);
+    switch( event.keyCode ){
+        case 37:
+            if ( MoveLeft() ){
+                generateOneNumber();
+                isGameOver();
+            }
+            break;
+        case 38:
+            if ( MoveUp() ){
+                generateOneNumber();
+                isGameOver();
+            }
+            break;
+        case 39:
+            if ( MoveRight() ){
+                generateOneNumber();
+                isGameOver();
+            }
+            break;
+        case 40:
+            if ( MoveDown() ){
+                generateOneNumber();
+                isGameOver();
+            }
+            break;
+        default:
+            break;
+    }
+})
+
+///////////////////////////////////////////??????
+function isGameOver() {
+
+}
+
+///////////////////////////////////////////////
+function MoveLeft(){
+    //?canMoveLeft
+    if( !canMoveLeft(board) ){
+        return false;
+    }
+
+    //moveLeft
+    for( var i = 0; i<4; i++){
+        for( var j = 1;j<4; j++){
+            if( board[i][j] !=0 ){
+                for( var k = 0; k<j; k++){
+                    if( board[i][k] == 0&& noBlockHorizontal(i, k, j, board) ){
+                        showMoveAnimation( i , j , i , k );
+                        board[i][k] = board[i][j];
+                        board[i][j] = 0;
+
+                        continue;
+                    }
+                    else if(board[i][k] == board[i][j] && noBlockHorizontal(i, k, j, board)){
+                        board[i][k] += board[i][j];
+                        board[i][j] = 0;
+
+                        continue;
+                    }
+
+                }
+            }
+        }
+    }
+    //更新board
+    setTimeout("updateBoardView()",200);
+    return true;
+}
+
+////////////////////////////////////////////////
+function MoveUp(){
+    //?canMoveUp
+    if( !canMoveUp(board) ){
+        return false;
+    }
+
+    //moveUp
+    for( var i = 1; i<4; i++){
+        for( var j = 0;j<4; j++){
+            if( board[i][j] !=0 ){
+                for( var k = 0; k<i; k++){
+                    if( board[k][j] == 0 && noBlockVertical(k, i, j, board) ){
+                        showMoveAnimation( i , j , k , j );
+                        board[k][j] = board[i][j];
+                        board[i][j] = 0;
+
+                        continue;
+                    }
+                    else if(board[k][j] == board[i][j] && noBlockVertical(k, i, j, board)){
+                        board[k][j] += board[i][j];
+                        board[i][j] = 0;
+
+                        continue;
+                    }
+
+                }
+            }
+        }
+    }
+    //更新board
+    setTimeout("updateBoardView()",200);
+    return true;
+}
+
+
+////////////////////////////////////////////////////////
+function MoveRight(){
+    //?canMoveRight
+    if( !canMoveRight(board) ){
+        return false;
+    }
+
+    //MoveRight
+    for( var i = 0; i<4; i++){
+        for( var j = 0;j<3; j++){
+            if( board[i][j] !=0 ){
+                for( var k = j+1; k<4; k++){
+                    if( board[i][k] == 0&& noBlockHorizontal(i, j, k, board) ){
+                        showMoveAnimation( i , j , i , k );
+                        board[i][k] = board[i][j];
+                        board[i][j] = 0;
+
+                        continue;
+                    }
+                    else if(board[i][k] == board[i][j] && noBlockHorizontal(i, j, k, board)){
+                        board[i][k] += board[i][j];
+                        board[i][j] = 0;
+
+                        continue;
+                    }
+
+                }
+            }
+        }
+    }
+    //更新board
+    setTimeout("updateBoardView()",200);
+    return true;
+}
+
+
+////////////////////////////////////////////////
+function MoveDown(){
+    //?canMoveDown
+    if( !canMoveDown(board) ){
+        return false;
+    }
+
+    //MoveDown
+    for( var i = 0; i<3; i++){
+        for( var j = 0;j<4; j++){
+            if( board[i][j] !=0 ){
+                for( var k = i+1; k<4; k++){
+                    if( board[k][j] == 0&& noBlockVertical(i, k, j, board) ){
+                        showMoveAnimation( i , j , k , j );
+                        board[k][j] = board[i][j];
+                        board[i][j] = 0;
+
+                        continue;
+                    }
+                    else if(board[k][j] == board[i][j] && noBlockVertical(i, k, j, board)){
+                        board[k][j] += board[i][j];
+                        board[i][j] = 0;
+
+                        continue;
+                    }
+
+                }
+            }
+        }
+    }
+    //更新board
+    setTimeout("updateBoardView()",100);
+    return true;
 }

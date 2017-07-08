@@ -51,3 +51,79 @@ function nospace(){
     }
     return true;
 }
+
+
+function canMoveLeft(board){
+    for(var i = 0; i<4; i++){
+        for(var j = 1; j<4; j++){
+            if( board[i][j] != 0){
+                if (board[i][j-1] == 0 || board[i][j-1] == board[i][j] ){
+                    return true;
+                }
+            }
+        }
+    }
+    return false;
+}
+
+function canMoveUp(board) {
+    for(var i = 1; i<4; i++){
+        for(var j = 0; j<4; j++){
+            if( board[i][j] != 0){
+                if (board[i-1][j] == 0 || board[i-1][j] == board[i][j] ){
+                    return true;
+                }
+            }
+        }
+    }
+    return false;
+
+}
+
+function canMoveRight(board) {
+    for(var i = 0; i<4; i++){
+        for(var j = 0; j<3; j++){
+            if( board[i][j] != 0){
+                if (board[i][j+1] == 0 || board[i][j+1] == board[i][j] ){
+                    return true;
+                }
+            }
+        }
+    }
+    return false;
+
+}
+
+function canMoveDown(board) {
+    for(var i = 0; i<3; i++){
+        for(var j = 0; j<4; j++){
+            if( board[i][j] != 0){
+                if (board[i+1][j] == 0 || board[i+1][j] == board[i][j] ){
+                    return true;
+                }
+            }
+        }
+    }
+    return false;
+
+}
+
+
+function noBlockHorizontal(row, col1, col2, board) {
+    for( var m = col1+1; m<col2; m++){
+        if(board[row][m] != 0){
+            return false;
+        }
+    }
+    return true;
+}
+
+
+function noBlockVertical(row1, row2, col, board){
+    for( var m = row1+1; m<row2; m++){
+        if(board[m][col] != 0){
+            return false;
+        }
+    }
+    return true;
+}
