@@ -51,6 +51,16 @@ function nospace(){
     }
     return true;
 }
+function noMove() {
+    if( canMoveLeft(board) ||
+        canMoveRight(board) ||
+        canMoveUp(board) ||
+        canMoveDown(board)){
+        return false;
+    }
+    return true;
+}
+
 
 
 function canMoveLeft(board){

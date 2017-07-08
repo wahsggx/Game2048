@@ -103,26 +103,26 @@ $(document).keydown(function (event) {
     switch( event.keyCode ){
         case 37:
             if ( MoveLeft() ){
-                generateOneNumber();
-                isGameOver();
+                setTimeout("generateOneNumber()",210);
+                setTimeout("isGameOver()",300);
             }
             break;
         case 38:
             if ( MoveUp() ){
-                generateOneNumber();
-                isGameOver();
+                setTimeout("generateOneNumber()",210);
+                setTimeout("isGameOver()",300);
             }
             break;
         case 39:
             if ( MoveRight() ){
-                generateOneNumber();
-                isGameOver();
+                setTimeout("generateOneNumber()",210);
+                setTimeout("isGameOver()",300);
             }
             break;
         case 40:
             if ( MoveDown() ){
-                generateOneNumber();
-                isGameOver();
+                setTimeout("generateOneNumber()",210);
+                setTimeout("isGameOver()",300);
             }
             break;
         default:
@@ -132,7 +132,13 @@ $(document).keydown(function (event) {
 
 ///////////////////////////////////////////??????
 function isGameOver() {
+    if(nospace(board) && noMove(board)){
+        gameOver();
+    }
+}
 
+function gameOver(){
+    alert("gameover!");
 }
 
 ///////////////////////////////////////////////
