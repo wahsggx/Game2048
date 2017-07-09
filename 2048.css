@@ -1,14 +1,15 @@
 header{
     display: block;
     margin: 0 auto;
-    width: 500px;
+    width: 100%;/*手机属性*/
     text-align: center;
 }
 header h1{
     color:black;
-    font-size: 50px;
+    font-size: 40px;
     font-family: Arial;
     font-weight: bold;
+
 }
 header #newGameButton{
     display: block;
@@ -22,16 +23,18 @@ header #newGameButton{
 
     border-radius: 10px;
     text-decoration: none;
+
 }
 
 header p{
     font-family: Arial;
     font-weight: bold;
     font-size: 10px;
+
 }
 
 #grid-container{
-    width: 380px;
+    width: 380px;/*为适配当前电脑更改尺寸*/
     height: 380px;
     padding: 20px;
 

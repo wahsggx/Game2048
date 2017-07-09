@@ -1,14 +1,23 @@
 /**
  * Created by Hokkaido on 2017/7/5.
  */
+
+documentWidth = window.screen.availWidth;/*当前屏幕可使用宽度*/
+
+gridContainerWidth = 0.92*documentWidth;
+cellSideLength = 0.18*documentWidth;
+cellSpace = 0.04*documentWidth;
+
+
+
 //获取board的left值
 function getPosLeft(i,j){
-    return 20 + j * 100;
+    return cellSpace + j * (cellSpace+cellSideLength);
 }
 
 //获取board的top值
 function getPosTop(i,j){
-    return 20 + i * 100;
+    return cellSpace + i * (cellSpace+cellSideLength);
 }
 
 //设置不同数字背景颜色

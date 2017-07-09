@@ -1,7 +1,30 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
+    <meta charset = "UTF-8"/>
+    <!--   适配手机需要设置以下属性
+    <meta name = "viewport"
+          content = "
+                width = [pixel_value|device-value],
+                height = [pixel_value|device-value],
+                initial-scale = float_value,
+                minimum-scale = float_value,
+                maximum-scale = float_value,
+                user-scalable = [yes|no]
+                "
+    />
+    -->
+
+    <meta name = "viewport"
+          content = "
+                width = device-width,
+                height = device-height,
+                initial-scale = 1.0,
+                minimum-scale = 1.0,
+                maximum-scale = 1.0,
+                user-scalable = no"
+    />
+
     <title>Title</title>
 
     <link rel="stylesheet"type="text/css" href="2048.css">
@@ -40,5 +63,6 @@
         <div class="grid-cell" id="grid-cell-3-3"></div>
 
     </div>
+
 </body>
 </html>

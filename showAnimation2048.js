@@ -9,11 +9,11 @@ function showNumberWithAnimation(i, j, randNumber){
     $Numbercell.text(randNumber);
 
     $Numbercell.animate({
-        width:"80px",
-        height:"80px",
+        width:cellSideLength,
+        height:cellSideLength,
         left:getPosLeft(i,j),
         top:getPosTop(i,j)
-        },50);
+    },50);
 
 };
 

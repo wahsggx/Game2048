@@ -3,11 +3,37 @@
  */
 var board = new Array();
 var score = 0;
+/*hasConflict变量用来表示某个位置是否发生过变化*/
 var hasConflict = new Array();
+
+//添加触控
+var startX = 0;
+var startY = 0;
+var endX = 0;
+var endY = 0;
 ///////////////////////////////////////初始化页面//////////////////
 $(document).ready(function(){
+    prepareForMobile();//对底层网格grid进行设置
     newgame();
 });
+
+function prepareForMobile() {
+    if(gridContainerWidth>500){
+        gridContainerWidth = 500;
+        cellSideLength = 100;
+        cellSpace = 20;
+    }
+
+
+    $("#grid-container").css("width",gridContainerWidth-2*cellSpace);
+    $("#grid-container").css("height",gridContainerWidth-2*cellSpace);
+    $("#grid-container").css("padding",cellSpace);
+    $("#grid-container").css("border-radius",0.02*gridContainerWidth);
+
+    $(".grid-cell").css("width",cellSideLength);
+    $(".grid-cell").css("height",cellSideLength);
+    $(".grid-cell").css("border-radius",0.02*gridContainerWidth);
+}
 
 
 function newgame(){
@@ -55,12 +81,12 @@ function updateBoardView(){
             if(board[i][j] == 0){
                 $theNumberCell.css('width','0px');
                 $theNumberCell.css('height','0px');
-                $theNumberCell.css('left',getPosLeft(i,j)+40);
-                $theNumberCell.css('top',getPosTop(i,j)+40);
+                $theNumberCell.css('left',getPosLeft(i,j)+cellSideLength/2);
+                $theNumberCell.css('top',getPosTop(i,j)+cellSideLength/2);
             }
             else{
-                $theNumberCell.css('width','80px');
-                $theNumberCell.css('height','80px');
+                $theNumberCell.css('width',cellSideLength);
+                $theNumberCell.css('height',cellSideLength);
                 $theNumberCell.css('left',getPosLeft(i,j));
                 $theNumberCell.css('top',getPosTop(i,j));
                 $theNumberCell.css('background-color',getNumberBackgroundColor(board[i][j]));
@@ -70,6 +96,10 @@ function updateBoardView(){
             hasConflict[i][j] = false;
         }
     }
+    $(".number-cell").css("line-height",cellSideLength+'px');
+    $(".number-cell").css("text-align",'center');
+    $(".number-cell").css("font-size",0.5*cellSideLength+'px');
+
 }
 
 function generateOneNumber(){
@@ -115,27 +145,32 @@ function generateOneNumber(){
 //实现交互
 
 $(document).keydown(function (event) {
-    console.log(event.keyCode);
+    //event.preventDefault();//会取消event事件的所有默认行为   在当前添加 可以取消按上下键的时候下拉框划动的问题
+                           //但是 这样做会取消所有按键的默认行为，应该添加在每个确定的事件里
     switch( event.keyCode ){
         case 37:
+            event.preventDefault();
             if ( MoveLeft() ){
                 setTimeout("generateOneNumber()",210);
                 setTimeout("isGameOver()",300);
             }
             break;
         case 38:
+            event.preventDefault();
             if ( MoveUp() ){
                 setTimeout("generateOneNumber()",210);
                 setTimeout("isGameOver()",300);
             }
             break;
         case 39:
+            event.preventDefault();
             if ( MoveRight() ){
                 setTimeout("generateOneNumber()",210);
                 setTimeout("isGameOver()",300);
             }
             break;
         case 40:
+            event.preventDefault();
             if ( MoveDown() ){
                 setTimeout("generateOneNumber()",210);
                 setTimeout("isGameOver()",300);
@@ -145,6 +180,71 @@ $(document).keydown(function (event) {
             break;
     }
 })
+
+document.addEventListener("touchstart",function (event) {
+     startX = event.touches[0].pageX;
+     startY = event.touches[0].pageY;
+})
+
+
+//手指触发失效，即可能触发了安卓的"touchmove" bug,“touchevent”不会触发，下面是解决办法
+document.addEventListener("touchmove",function (event) {
+    event.preventDefault();
+
+})
+
+document.addEventListener("touchend",function (event) {
+   endX = event.changedTouches[0].pageX;
+   endY = event.changedTouches[0].pageY;
+
+    var deltaX = endX - startX;
+    var deltaY = endY - startY;
+
+    if (Math.abs(deltaX) < 0.3*documentWidth && Math.abs(deltaY) < 0.3*documentWidth){
+        return;
+    }
+
+    //x
+    if (Math.abs(deltaX) >= Math.abs(deltaY)) {
+
+        if (deltaX > 0) {
+            //MoveRight
+            if (MoveRight()) {
+                setTimeout("generateOneNumber()", 210);
+                setTimeout("isGameOver()", 300);
+            }
+        } else {
+            //MoveLeft
+            if (MoveLeft()) {
+                setTimeout("generateOneNumber()", 210);
+                setTimeout("isGameOver()", 300);
+            }
+        }
+    }
+    //y
+    else {
+
+        if (deltaY > 0) {
+            //MoveDown  浏览器顶点在左上角
+            if (MoveDown()) {
+                setTimeout("generateOneNumber()", 210);
+                setTimeout("isGameOver()", 300);
+            }
+        }
+        else {
+
+            //MoveUp
+            if (MoveUp()) {
+                setTimeout("generateOneNumber()", 210);
+                setTimeout("isGameOver()", 300);
+            }
+
+        }
+    }
+});
+
+
+
 
 ///////////////////////////////////////////??????
 function isGameOver() {
