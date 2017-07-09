@@ -3,12 +3,12 @@
  */
 //获取board的left值
 function getPosLeft(i,j){
-    return 20 + j * 120;
+    return 20 + j * 100;
 }
 
 //获取board的top值
 function getPosTop(i,j){
-    return 20 + i * 120;
+    return 20 + i * 100;
 }
 
 //设置不同数字背景颜色

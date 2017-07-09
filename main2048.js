@@ -55,12 +55,12 @@ function updateBoardView(){
             if(board[i][j] == 0){
                 $theNumberCell.css('width','0px');
                 $theNumberCell.css('height','0px');
-                $theNumberCell.css('left',getPosLeft(i,j)+50);
-                $theNumberCell.css('top',getPosTop(i,j)+50);
+                $theNumberCell.css('left',getPosLeft(i,j)+40);
+                $theNumberCell.css('top',getPosTop(i,j)+40);
             }
             else{
-                $theNumberCell.css('width','100px');
-                $theNumberCell.css('height','100px');
+                $theNumberCell.css('width','80px');
+                $theNumberCell.css('height','80px');
                 $theNumberCell.css('left',getPosLeft(i,j));
                 $theNumberCell.css('top',getPosTop(i,j));
                 $theNumberCell.css('background-color',getNumberBackgroundColor(board[i][j]));

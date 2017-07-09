@@ -9,8 +9,8 @@ function showNumberWithAnimation(i, j, randNumber){
     $Numbercell.text(randNumber);
 
     $Numbercell.animate({
-        width:"100px",
-        height:"100px",
+        width:"80px",
+        height:"80px",
         left:getPosLeft(i,j),
         top:getPosTop(i,j)
         },50);
