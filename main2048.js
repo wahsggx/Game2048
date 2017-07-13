@@ -68,6 +68,7 @@ function init(){
     //根据board值对前端进行展示
     updateBoardView();
     score = 0;/////分数一直累加没有意义？？？？？？？？？？？？？？？？？？？？？？？？？？？？
+	updateScore(score);
 }
 
 
